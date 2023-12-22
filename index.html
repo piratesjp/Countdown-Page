@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Countdown</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+    }
+
+    #countdown {
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    #revealContent {
+      display: none;
+      margin-top: 20px;
+      font-size: 18px;
+      color: #000000;
+    }
+
+    #revealButton {
+      display: none;
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #0066cc;
+      color: white;
+      border-radius: 10px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div id="countdown">New Year Countdown &#9203;: <span id="timer"></span></div>
+<div id="revealContent">The timer has finished! This is the revealed content.</div>
+<a href="#" id="revealButton">Click to Reveal Content</a>
+
+<script>
+  // Set the target date and time (12:00 AM on December 19, 2023)
+  const targetDate = new Date('January 01, 2024 00:00:00').getTime();
+
+  // Update the countdown every second
+  const countdownInterval = setInterval(updateCountdown, 1000);
+
+  function updateCountdown() {
+    const currentDate = new Date().getTime();
+    const timeDifference = targetDate - currentDate;
+
+    // Calculate days, hours, minutes, and seconds
+    const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+    // Display the countdown
+    document.getElementById('timer').innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+    // Check if the timer has reached zero
+    if (timeDifference <= 0) {
+      clearInterval(countdownInterval); // Stop the countdown
+      document.getElementById('countdown').style.display = 'none'; // Hide the countdown
+      document.getElementById('revealContent').style.display = 'block'; // Show the revealed content
+      document.getElementById('revealButton').style.display = 'block'; // Show the reveal button
+    }
+  }
+
+  document.getElementById('revealButton').addEventListener('click', function() {
+    // Redirect to a specific URL when the button is clicked
+    window.location.href = '#'; // Replace '#' with your desired URL
+  });
+</script>
+
+</body>
+</html>
